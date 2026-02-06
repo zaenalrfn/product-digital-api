@@ -20,6 +20,9 @@ export default class OrderItem extends BaseModel {
   declare price: number
 
   @column()
+  declare quantity: number
+
+  @column()
   declare downloadUrl: string
 
   @column.dateTime({ autoCreate: true })

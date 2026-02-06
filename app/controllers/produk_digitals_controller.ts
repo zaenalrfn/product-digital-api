@@ -41,6 +41,7 @@ async update({params, request, response}: HttpContext) {
         })
     }
     const payload = await request.validateUsing(produkDigitalUpdate);
+    payload.slug = string.slug(payload.title);
     produkDigital.merge(payload);
     await produkDigital.save();
     return response.ok({

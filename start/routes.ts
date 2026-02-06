@@ -39,3 +39,19 @@ router.group(() => {
     router.put('/produk-digitals/:id', [ProdukDigitalsController, 'update'])
     router.delete('/produk-digitals/:id', [ProdukDigitalsController, 'destroy'])
 }).prefix('api').use(middleware.auth())
+
+// route orders
+import OrdersController from '#controllers/orders_controller'
+router.group(() => {
+    router.get('/orders', [OrdersController, 'index'])
+}).prefix('api').use(middleware.auth())
+
+// route checkout
+import CheckoutsController from '#controllers/checkouts_controller'
+router.group(() => {
+    router.post('/checkout', [CheckoutsController, 'store'])
+}).prefix('api').use(middleware.auth())
+
+// route midtrans webhook
+import MidtransWebhooksController from '#controllers/midtrans_webhooks_controller'
+router.post('/midtrans/webhook', [MidtransWebhooksController, 'handle']).prefix('api')

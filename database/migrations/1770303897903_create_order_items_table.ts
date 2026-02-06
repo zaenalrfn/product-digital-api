@@ -23,6 +23,7 @@ export default class extends BaseSchema {
 
       table.string('product_title').notNullable()
       table.decimal('price', 12, 2).notNullable()
+      table.integer('quantity').unsigned().notNullable().defaultTo(1)
       table.text('download_url').notNullable()
 
       table.timestamp('created_at')
