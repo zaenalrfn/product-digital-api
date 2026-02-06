@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+      }
+      
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #eee;
+        border-radius: 5px;
+      }
+      
+      .header {
+        background-color: #f8f9fa;
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+      }
+      
+      .content {
+        padding: 20px;
+      }
+      
+      .item {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+      }
+      
+      .btn {
+        display: inline-block;
+        padding: 8px 15px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        margin-top: 5px;
+      }
+      
+      .footer {
+        text-align: center;
+        font-size: 12px;
+        color: #999;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h2>
+          Thank You for Your Order!
+        </h2>
+      </div>
+      <div class="content">
+        <p>
+          Hi {{ user.fullName || 'Valued Customer' }},
+        </p>
+        <p>
+          We confirm that your payment for order <strong>#{{ order.orderCode }}</strong>has been received successfully.
+        </p>
+
+        <h3>
+          Your Downloads
+        </h3>
+        <p>
+          Here are the links to access your digital products:
+        </p>
+
+        @each(item in items)
+          <div class="item">
+            <h4>
+              {{ item.title }}
+            </h4>
+            <p>
+              Quantity: {{ item.quantity }}
+            </p>
+            <a href="{{ item.downloadUrl }}" class="btn" target="_blank">Download Now</a>
+          </div>
+        @end
+        
+        <p>
+          If you have any trouble accessing your files, please contact our support.
+        </p>
+      </div>
+      <div class="footer">
+        <p>
+          &copy; {{ new Date().getFullYear() }} Product Digital Store. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

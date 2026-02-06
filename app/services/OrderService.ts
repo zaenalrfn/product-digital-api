@@ -2,6 +2,7 @@ import Order from '#models/order'
 import OrderItem from '#models/order_item'
 import User from '#models/user'
 import MidtransService from '#services/MidtransService'
+import MailService from '#services/MailService'
 import string from '@adonisjs/core/helpers/string'
 
 export default class OrderService {
@@ -118,9 +119,17 @@ export default class OrderService {
                 order.status = 'pending';
             } else if (fraudStatus == 'accept') {
                 order.status = 'paid';
+                // Fetch User and Items for Email
+                await order.load('user');
+                await order.load('items');
+                await MailService.sendDownloadLinks(order.user, order, order.items);
             }
         } else if (transactionStatus == 'settlement') {
             order.status = 'paid';
+             // Fetch User and Items for Email
+            await order.load('user');
+            await order.load('items');
+            await MailService.sendDownloadLinks(order.user, order, order.items);
         } else if (transactionStatus == 'cancel' || transactionStatus == 'deny' || transactionStatus == 'expire') {
             order.status = 'failed';
         } else if (transactionStatus == 'pending') {
