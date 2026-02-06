@@ -45,8 +45,8 @@ Ikuti langkah-langkah berikut untuk menjalankan proyek di komputer lokal Anda:
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/username/product-digital-store.git
-cd productdigitalstore
+git clone https://github.com/zaenalrfn/product-digital-api.git
+cd product-digital-api
 ```
 
 ### 2. Install Dependensi
