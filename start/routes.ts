@@ -9,6 +9,7 @@
 
 import router from '@adonisjs/core/services/router'
 import AuthController from '#controllers/auth_controller'
+import ProdukDigitalsController from '#controllers/produk_digitals_controller'
 import { middleware } from '#start/kernel'
 import { throttle } from '#start/limiter'
 
@@ -18,6 +19,7 @@ router.get('/', async () => {
   }
 })
 
+// route auth
 router.group(() => {
   router.post('/register', [AuthController, 'register']).use(throttle)
   router.post('/login', [AuthController, 'login']).use(throttle)
@@ -27,3 +29,13 @@ router.group(() => {
     router.get('/me', [AuthController, 'me'])
   }).use(middleware.auth())
 }).prefix('api')
+
+
+// route produk digital
+router.group(() => {
+    router.post('/produk-digitals', [ProdukDigitalsController, 'store']).use(throttle)
+    router.get('/produk-digitals', [ProdukDigitalsController, 'index'])
+    router.get('/produk-digitals/:id', [ProdukDigitalsController, 'show'])
+    router.put('/produk-digitals/:id', [ProdukDigitalsController, 'update'])
+    router.delete('/produk-digitals/:id', [ProdukDigitalsController, 'destroy'])
+}).prefix('api').use(middleware.auth())
