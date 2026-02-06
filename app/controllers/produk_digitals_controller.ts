@@ -2,6 +2,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 import ProdukDigital from '#models/digital_product'
 import { produkDigitalStore } from '#validators/product_digital_store'
 import { produkDigitalUpdate } from '#validators/product_digital_update'
+import string from '@adonisjs/core/helpers/string'
 
 
 export default class ProdukDigitalsController {
@@ -14,6 +15,7 @@ export default class ProdukDigitalsController {
 //   store
 async store({request, response}: HttpContext) {
     const payload = await request.validateUsing(produkDigitalStore);
+    payload.slug = string.slug(payload.title);
     const digitalProduct = await ProdukDigital.create(payload)
     return response.created({
         message: "Digital Produk Berhasil dibuat",
