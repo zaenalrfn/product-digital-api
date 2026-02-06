@@ -7,12 +7,12 @@ import string from '@adonisjs/core/helpers/string'
 
 export default class ProdukDigitalsController {
   async index({ response }: HttpContext) {
-    const produkDigitals = await ProdukDigital.all()
+
+    const produkDigitals = await ProdukDigital.query().select('id', 'title', 'slug', 'description', 'price', 'downloadUrl', 'isActive').orderBy('created_at', 'desc').paginate(1, 10)
     return response.ok(produkDigitals)
   }
   
 
-//   store
 async store({request, response}: HttpContext) {
     const payload = await request.validateUsing(produkDigitalStore);
     payload.slug = string.slug(payload.title);
@@ -23,7 +23,6 @@ async store({request, response}: HttpContext) {
     })
 }
 
-//   show
 async show({params, response}: HttpContext) {
     const produkDigital = await ProdukDigital.find(params.id);
     if(!produkDigital){
@@ -33,7 +32,7 @@ async show({params, response}: HttpContext) {
     }
     return response.ok(produkDigital)
 }
-//   update
+
 async update({params, request, response}: HttpContext) {
     const produkDigital = await ProdukDigital.find(params.id);
     if(!produkDigital){
@@ -49,7 +48,7 @@ async update({params, request, response}: HttpContext) {
         data: produkDigital
     })
 }
-//   destroy
+
 async destroy({params, response}: HttpContext) {
     const produkDigital = await ProdukDigital.find(params.id);
     if(!produkDigital){
